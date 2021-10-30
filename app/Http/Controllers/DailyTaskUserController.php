@@ -131,17 +131,20 @@ class DailyTaskUserController extends Controller
 
     $users = User::all();  
     $roles = Role::all();
+    $dutyTime = dailyTaskUser::all();
+    
 
     $userInfoArray = array();
     foreach($users as $user){
-        $user->DailyTaskTime;
+        $user->duty_time= $user->DailyTaskTime()->first();
         $user->role_id= $user->getRoleId()->first();
          
         $userInfoArray[$user->id]=$user;
     }
-    // return   $users;
+    //  return   User::find(1)->DailyTaskTime;
+   // return $users;
 
-     return view('admin.users.index',compact('users','userInfoArray','roles'));
+     return view('admin.users.index',compact('users','userInfoArray','roles','dutyTime'));
     
     
         }

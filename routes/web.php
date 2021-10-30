@@ -18,9 +18,9 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 
 Route::middleware(['auth:sanctum', 'verified', 'role:Administrator'])->group(function () {
-
     Route::resource('/admin',DailyTaskController::class);
     Route::Get('/user/management',[DailyTaskUserController::class,'UserInfo'])->name('user.manage');
+    Route::post();
 });
 
 

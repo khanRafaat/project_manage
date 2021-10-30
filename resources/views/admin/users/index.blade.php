@@ -196,16 +196,16 @@
 <script>
     var userInfoArray = @json($userInfoArray);
     var roles = @json($roles);
+    var dutyTime =@json($dutyTime);
 
     function viewTaskDeltails(id) {
-        console.log(userInfoArray[id]['role_id']);
-
+        
         $("#name").val(userInfoArray[id]['name']);
         $("#phone").val(userInfoArray[id]['phone']); 
         $("#email").val(userInfoArray[id]['email']);
-        
+        $("#weekly_duty").val(userInfoArray[id]['duty_time']['weekly_duty']);
+        $("#duty_time").val(userInfoArray[id]['duty_time']['duty_time']);
         $("#AdminEdit").attr('action','{{route('assignee.store')}}'+'/'+ userInfoArray[id]['id']);
-
 
         var ht="";
         $.each(roles, function (i) {
@@ -220,7 +220,9 @@
            
         });
         $("#role").html(ht);
-        console.log (ht);
+        
+
+        
     }
  
 </script>
