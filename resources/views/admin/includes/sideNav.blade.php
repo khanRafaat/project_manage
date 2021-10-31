@@ -29,6 +29,22 @@
 
                     @role('Administrator')
 
+                   <li class="nk-menu-item has-sub">
+                        <a href="#" class="nk-menu-link nk-menu-toggle">
+                            <span class="nk-menu-icon"><em class="icon ni ni-notes-alt"></em></span>
+                            <span class="nk-menu-text">Projects</span>
+                        </a>
+                        <ul class="nk-menu-sub">
+                            <li class="nk-menu-item">
+                                <a href="{{route('admin.create')}}" class="nk-menu-link"><span class="nk-menu-text">Create Task</span></a>
+                            </li>
+                            <li class="nk-menu-item">
+                                <a href="{{route('admin.index')}}" class="nk-menu-link"><span class="nk-menu-text">View Task List</span></a>
+                            </li>
+                          
+                        </ul><!-- .nk-menu-sub -->
+                    </li><!-- .nk-menu-item -->
+
                     <li class="nk-menu-item has-sub">
                         <a href="#" class="nk-menu-link nk-menu-toggle">
                             <span class="nk-menu-icon"><em class="icon ni ni-users"></em></span>
@@ -44,22 +60,6 @@
                     </li><!-- .nk-menu-item -->
 
 
-
-                    <li class="nk-menu-item has-sub">
-                        <a href="#" class="nk-menu-link nk-menu-toggle">
-                            <span class="nk-menu-icon"><em class="icon ni ni-notes-alt"></em></span>
-                            <span class="nk-menu-text">Projects</span>
-                        </a>
-                        <ul class="nk-menu-sub">
-                            <li class="nk-menu-item">
-                                <a href="{{route('admin.create')}}" class="nk-menu-link"><span class="nk-menu-text">Create Task</span></a>
-                            </li>
-                            <li class="nk-menu-item">
-                                <a href="{{route('admin.index')}}" class="nk-menu-link"><span class="nk-menu-text">View Task List</span></a>
-                            </li>
-                          
-                        </ul><!-- .nk-menu-sub -->
-                    </li><!-- .nk-menu-item -->
                  @endrole
 
                  @role('Assingee')

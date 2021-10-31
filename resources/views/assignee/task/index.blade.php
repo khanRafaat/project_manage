@@ -49,7 +49,9 @@
                     </div>
             </div>
             <div class="modal-footer bg-light">
-                <button class="btn btn-success" type="submit">Save Changes</button>
+                
+                <button class="btn btn-success center" style="position:center" type="submit">Save Changes</button>
+                
 
             </div>
 

@@ -16,7 +16,8 @@
 
                 <form action="#" method="POST" id="AdminEdit">
                     @csrf
-                    @method('PUT')
+                    @method('POST')
+                
                     <div class="row g-12">
                         <div class="col-lg-4">
                             <div class="form-group">
@@ -76,9 +77,7 @@
                             </div>
                         </div>
 
-
-
-                    </div>
+                  </div>
             </div>
             <div class="modal-footer bg-light">
                 <button class="btn btn-success" type="submit">Save Changes</button>
@@ -120,6 +119,7 @@
                 </thead>
 
                 <tbody>
+
                     @foreach ($users as $user)
 
 
@@ -158,10 +158,10 @@
                             </span>
                         </td>
                         <td class="nk-tb-col tb-col-md">
-                            <span>0 Hours</span>
+                            <span>{{$user->DailyTaskTime->duty_time}} Hours</span>
                         </td>
                         <td class="nk-tb-col tb-col-md">
-                            <span>0 Days</span>
+                            <span>{{$user->DailyTaskTime->weekly_duty}} Days</span>
                         </td>
                             <td class="nk-tb-col tb-col-lg">
                             <span>
@@ -205,7 +205,7 @@
         $("#email").val(userInfoArray[id]['email']);
         $("#weekly_duty").val(userInfoArray[id]['duty_time']['weekly_duty']);
         $("#duty_time").val(userInfoArray[id]['duty_time']['duty_time']);
-        $("#AdminEdit").attr('action','{{route('assignee.store')}}'+'/'+ userInfoArray[id]['id']);
+        $("#AdminEdit").attr('action','{{url('/user/update')}}'+'/'+ userInfoArray[id]['id']);
 
         var ht="";
         $.each(roles, function (i) {

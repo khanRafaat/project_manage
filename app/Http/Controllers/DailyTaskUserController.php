@@ -108,7 +108,7 @@ class DailyTaskUserController extends Controller
         $updateTask->update();
 
         $notification = array(
-            'message' => 'Task Updated Succesfully',
+            'message' => 'Task Update Succesfully',
             'alert-type' => 'success'
         );
         return Redirect()->back()->with($notification);
@@ -126,28 +126,49 @@ class DailyTaskUserController extends Controller
     }
 
 
-    public function UserInfo(){
+    public function userInfo(){
       
-
     $users = User::all();  
     $roles = Role::all();
     $dutyTime = dailyTaskUser::all();
+    $userInfoArray = array();
     
 
-    $userInfoArray = array();
+   
     foreach($users as $user){
         $user->duty_time= $user->DailyTaskTime()->first();
         $user->role_id= $user->getRoleId()->first();
-         
         $userInfoArray[$user->id]=$user;
     }
-    //  return   User::find(1)->DailyTaskTime;
-   // return $users;
+//   return $user->DailyTaskTime;
 
      return view('admin.users.index',compact('users','userInfoArray','roles','dutyTime'));
     
-    
-        }
+    }
+
+    public function userUpdate(Request $request, $id){
+
+        $updateUser = User::find($id);
+        $updateUser->name = $request->name;
+        $updateUser->phone = $request->phone;
+        $updateUser->email = $request->email;
+        $updateUser->update();
+        $updateUser->syncRoles($request->role);
+
+        $updateDutyTime = dailyTaskUser::find($id);
+        $updateDutyTime->duty_time = $request->duty_time;
+        $updateDutyTime->weekly_duty = $request->weekly_duty;
+        $updateDutyTime->update();
+
+        $notification = array(
+            'message' => 'User Update Succesfully',
+            'alert-type' => 'success'
+        );
+       
+        return Redirect()->back()->with($notification);
+
+    }
+
     public function logout()
     {
         Auth::logout();

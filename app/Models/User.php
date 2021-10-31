@@ -66,9 +66,10 @@ class User extends Authenticatable
     }
 
     public function DailyTaskTime(){
-        return $this->hasMany(dailyTaskUser::class,'user_id');
+        return $this->hasOne(dailyTaskUser::class,'user_id');
     }
-
+    
+   
     
     public function getRoleId()
     {
