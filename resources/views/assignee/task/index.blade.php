@@ -48,14 +48,89 @@
 
                     </div>
             </div>
-            <div class="modal-footer bg-light">
-                
-                <button class="btn btn-success center" style="position:center" type="submit">Save Changes</button>
-                
-
-            </div>
-
+            <button class="btn btn-success center"  type="submit">Save Changes</button>
             </form>
+
+            <div class="modal-footer bg-light" style=" margin-top:20px">
+            
+                     
+                        <div class="row col-12" style="margin-left:-150px" >
+
+                            <div class="col-md-8" >
+                                <div class="form-group">
+                             
+                                    <div class="form-control-wrap">
+
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+
+                                                    <th scope="col">Start Time</th>
+                                                    <th scope="col">End Time</th>
+                                                    <th scope="col">Total Time</th>
+                                                    <th scope="col">Action</th>
+
+
+                                                </tr>
+                                            </thead>
+                                            <tbody id="timeListTable">
+
+                                            
+                                        
+
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                 <div class=" col-12" id="timeForm">
+                        <div class="col-md-4" style="margin-left:600px; margin-top:-100px;">
+                            <div class="form-group">
+                                
+                           
+                                <label class="form-label" >Start Time</label>
+                                <div class="form-control-wrap">
+                                    
+                                    <input type="time" name="start_time" id="get_start_time"  class="get_start_time form-control"  data-toggle="tooltip" data-placement="top"
+                            title="Click for current time">
+                            <p id="start_time_error"></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4" style="margin-left:600px; ">
+                            <div class="form-group">
+                                <label class="form-label" for="phone-no-1">End time</label>
+                                <div class="form-control-wrap">
+                                    <input type="time" name="end_time"  id="get_end_time" class="get_end_time form-control"  data-toggle="tooltip" data-placement="top"
+                            title="Click for current time" >
+                            <p id="end_time_error"></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4" style="margin-left:55em; margin-top: 20px ">
+                            <div class="form-group">
+
+                                <div class="form-control-wrap">
+                                    <button type="submit " class="btn btn-secondary add_time">Save Time</button>
+                                </div>
+                            </div>
+                           
+                        </div>
+                       
+                 </div>
+
+                </div>
+            
+             
+
+         </div>
+
+           
         </div>
     </div>
 </div>
@@ -110,7 +185,7 @@
                         <tr data-toggle="modal" data-target="#adminedit" onclick="viewTaskDeltails('{{$Task->id}}')">
                             <th scope=" row">{{$i++}}</th>
                          
-                            <td data-toggle="tooltip" data-placement="bottom"
+                            <td data-toggle="tooltip" data-placement="top"
                             title="Assigned Work : {{$Task->assigned_work}} " >{{$Task->ReporterName->name}}</td>
                             <td>{{Carbon\Carbon::parse($Task->date)->format('d/m/Y')}}</td>
                             <td>
@@ -157,6 +232,7 @@
 @section('js')
 <script>
 
+ 
  var taskArray = @json($AssigneeTaskArray);
             function viewTaskDeltails(id) {
 
@@ -164,7 +240,136 @@
                 $("#done_work").text(taskArray[id]['done_work']);
                 $("#pfassignee").val(taskArray[id]['pf_assignee']);
                 $("#AdminEdit").attr('action','{{url('assignee')}}'+'/'+ taskArray[id]['id']);
-             }
+
+                fatchTime()
+
+             function fatchTime(){
+
+                    $.ajax({
+
+                        type:"GET",
+                        url:"/times/list/"+taskArray[id]['id'],
+                        dataType: "json",
+                        success: function(response){
+
+                            console.log(response.timeList);
+                            $('#timeListTable').html("");
+                            $.each(response.timeList, function (key,times){
+                        $('#timeListTable').append(`
+
+                                    
+                        <tr>\
+                            <td> `+times.start_time +` </td>\
+
+                            <td> `+times.end_time +` </td>\
+
+                            <td> 00:00:00</td>\
+                            
+                            <td> <button id="scheduledelete" value="`+times.id +`" class="btn btn-danger btn-sm" style="padding: 2px;">Delete</button></td>\
+                        </tr>` );
+
+
+
+                            });
+
+
+
+                        }
+        });
+
+
+     }           
+
+$(document).on('click','.add_time',function(e){
+
+        e.preventDefault();
+        $(".add_time").prop("disabled",true);
+        $(".add_time").text("Saving...");
+
+        var timeData ={
+            'task_id':taskArray[id]['id'],
+            'start_time': $('.get_start_time').val(),
+            'end_time': $('.get_end_time').val(),
+        }
+
+        $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+        });
+
+        $.ajax({
+
+            type: "POST",
+            url:"{{route('times.store')}}",
+            data: timeData,
+            dataType: "json",
+            success: function(response){
+            console.log(response);
+            if(response.status == 400)
+            {
+                
+       
+        $("#start_time_error").show();
+        $("#end_time_error").show();
+        $("#start_time_error").text(response.errors.start_time);
+        $("#start_time_error").addClass('badge badge-danger');
+        $("#end_time_error").text(response.errors.end_time);
+        $("#end_time_error").addClass('badge badge-danger');
+        $(".add_time").prop("disabled",false);
+        $(".add_time").text("Save Time");
+
+
+
+
+     }
+     else{
+        
+  
+        $("#start_time_error").hide();
+        $("#end_time_error").hide();
+        $("#time_status").addClass('badge badge-success');
+        $("#time_status").text(response.message);
+        $("#time_status").show(1000);
+        $("#time_status").hide(4000);
+        $(".add_time").prop("disabled",false);
+        $(".add_time").text("Add Time");
+        $("#timeForm").find('input').val('');
+        fatchTime()
+        toastr.clear();
+        NioApp.Toast(response.message, 'success', {position: 'top-right'});
+       
+      
+                    }
+
+            }
+        });
+
+ });
+
+}
+
+
+$( "#get_start_time" ).click(function() {
+    var date = new Date();
+    currentHours = date.getHours();
+    currentHours = ("0" + currentHours).slice(-2) + ":" + date.getMinutes();
+    var currentTime = document.querySelector("#get_start_time");
+    currentTime.value = currentHours;
+});
+
+$( "#get_end_time" ).click(function() {
+    var date = new Date();
+    currentHours = date.getHours();
+    currentHours = ("0" + currentHours).slice(-2) + ":" + date.getMinutes();
+    var currentTime = document.querySelector("#get_end_time");
+    currentTime.value = currentHours;
+});
+
+
+   
+
+
 
 </script>
 @endsection

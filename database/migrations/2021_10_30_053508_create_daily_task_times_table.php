@@ -16,8 +16,9 @@ class CreateDailyTaskTimesTable extends Migration
         Schema::create('daily_task_times', function (Blueprint $table) {
             $table->id();
             $table->foreignId('daily_task_id')->constrained('daily_tasks');
-            $table->string('start_time');
-            $table->string('end_time');
+            $table->string('start_time')->nullable();
+            $table->string('end_time')->nullable();
+            $table->timestamps();
         });
     }
 

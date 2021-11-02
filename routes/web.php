@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\DailyTaskController;
+use App\Http\Controllers\dailyTaskTimeController;
 use App\Http\Controllers\DailyTaskUserController;
-use App\Models\dailyTaskUser;
 use Illuminate\Support\Facades\Route;
 
 
@@ -23,8 +23,14 @@ Route::middleware(['auth:sanctum', 'verified', 'role:Administrator'])->group(fun
     Route::post('/user/update/{id}',[DailyTaskUserController::class,'userUpdate']);
 });
 
+Route::middleware(['auth:sanctum', 'verified', 'role:Assingee'])->group(function () {
+    Route::resource('/assignee',DailyTaskUserController::class);
+    Route::resource('/times',dailyTaskTimeController::class);
+    Route::get('/times/list/{id}',[dailyTaskTimeController::class,'GetTime']);
+    
+});
 
 
 
 
-Route::resource('/assignee',DailyTaskUserController::class);
+
