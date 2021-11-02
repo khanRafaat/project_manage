@@ -36,45 +36,40 @@ class dailyTaskTimeController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(),[
+        $validator = Validator::make($request->all(), [
 
-            'start_time'=>'required',
-            'end_time'=>'required',
-         ]);
+            'start_time' => 'required',
+            'end_time' => 'required',
+        ]);
 
-         if($validator->fails())
-         {
-             return response()->json([
+        if ($validator->fails()) {
+            return response()->json([
 
-                'status'=>400,
-                'errors'=>$validator->messages(),
-
+                'status' => 400,
+                'errors' => $validator->messages(),
 
 
-             ]);
-         }
-         else{
+
+            ]);
+        } else {
 
             $timeData = new dailyTaskTime();
             $timeData->daily_task_id = $request->input('task_id');
             $timeData->start_time = $request->input('start_time');
             $timeData->end_time = $request->input('end_time');
             $timeData->save();
-            
+
 
             return response()->json([
 
-                'status'=>200,
-                'message'=>'Time save Succesfully',
+                'status' => 200,
+                'message' => 'Time Data Saved Succesfully',
 
 
 
-             ]);
-           
-
-
-         }
- }
+            ]);
+        }
+    }
 
     /**
      * Display the specified resource.
@@ -84,7 +79,6 @@ class dailyTaskTimeController extends Controller
      */
     public function show(Request $request, $id)
     {
-       
     }
 
     /**
@@ -118,15 +112,23 @@ class dailyTaskTimeController extends Controller
      */
     public function destroy($id)
     {
-        //
-    }
-    public function GetTime(Request $request, $id){
+        $deleteTime = dailyTaskTime::find($id);
+        $deleteTime->delete();
 
-        $timeList = dailyTaskTime::where('daily_task_id',$id)->get();
         return response()->json([
 
-            'timeList'=>$timeList,
-       ]);
+            'status' => 200,
+            'message' => 'Time Data Deleted Succesfully',
 
+        ]);
+    }
+    public function GetTime(Request $request, $id)
+    {
+
+        $timeList = dailyTaskTime::where('daily_task_id', $id)->get();
+        return response()->json([
+
+            'timeList' => $timeList,
+        ]);
     }
 }
