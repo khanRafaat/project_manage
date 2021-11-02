@@ -116,7 +116,7 @@
                             <div class="form-group">
 
                                 <div class="form-control-wrap">
-                                    <button type="submit " class="btn btn-secondary add_time">Save Time</button>
+                                    <button type="submit " class="btn btn-secondary add_time">Save</button>
                                 </div>
                             </div>
                            
@@ -258,14 +258,14 @@
                         $('#timeListTable').append(`
 
                                     
-                        <tr>\
-                            <td> `+times.start_time +` </td>\
+                        <tr>
+                            <td> `+times.start_time +` </td>
 
-                            <td> `+times.end_time +` </td>\
+                            <td> `+times.end_time +` </td>
 
-                            <td> 00:00:00</td>\
+                            <td> 00:00:00</td>
                             
-                            <td> <button id="scheduledelete" value="`+times.id +`" class="btn btn-danger btn-sm" style="padding: 2px;">Delete</button></td>\
+                            <td> <button id="scheduledelete" value="`+times.id +`" class="btn btn-danger btn-sm" style="padding: 2px;">Delete</button></td>
                         </tr>` );
 
 
@@ -284,7 +284,7 @@ $(document).on('click','.add_time',function(e){
 
         e.preventDefault();
         $(".add_time").prop("disabled",true);
-        $(".add_time").text("Saving...");
+        $(".add_time").text("Please Wait...");
 
         var timeData ={
             'task_id':taskArray[id]['id'],
@@ -317,7 +317,7 @@ $(document).on('click','.add_time',function(e){
         $("#end_time_error").text(response.errors.end_time);
         $("#end_time_error").addClass('badge badge-danger');
         $(".add_time").prop("disabled",false);
-        $(".add_time").text("Save Time");
+        $(".add_time").text("Save");
 
 
 
@@ -333,7 +333,7 @@ $(document).on('click','.add_time',function(e){
         $("#time_status").show(1000);
         $("#time_status").hide(4000);
         $(".add_time").prop("disabled",false);
-        $(".add_time").text("Add Time");
+        $(".add_time").text("Save");
         $("#timeForm").find('input').val('');
         fatchTime()
         toastr.clear();

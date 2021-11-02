@@ -65,7 +65,7 @@ class dailyTaskTimeController extends Controller
             return response()->json([
 
                 'status'=>200,
-                'message'=>'Time added Succesfully',
+                'message'=>'Time save Succesfully',
 
 
 
