@@ -353,22 +353,30 @@ Edit Modal Start  -->
                 console.log(response.timeList);
 
 
+
                 $('#timeListTable').html('');
+
+
+
+
 
 
 
 
                 $.each(response.timeList, function(key, times) {
 
+
+
+
                     $('#timeListTable').append(`
 
                                                 
-                                    <tr>
-                                        <td> ` + tConv24(times.start_time) + ` </td>
+                                    <tr >
+                                        <td> ` + tConv24(times.start_time)+ ` </td>
 
-                                        <td> ` + tConv24(times.end_time) + ` </td>
+                                        <td> `+tConv24(times.end_time)+` </td>
 
-                                        <td> ` + diff(times.start_time, times.end_time) + `</td>
+                                        <td> `+diff(times.start_time, times.end_time)+ `</td>
                                         
                                         <td> <button id="scheduledelete" value="` + times.id + `" class=" delete_time btn btn-danger btn-sm" style="padding: 2px;">Delete</button></td>
                                     </tr>`
