@@ -178,11 +178,6 @@ Edit Modal Start  -->
     </div>
     @endif
 
-
-
-
-
-
     <a style="margin-bottom: 10px" href="{{route('assignee.index')}}?day=yesterday" class="btn btn-primary">Yesterday</a>
     <a style="margin-bottom: 10px" href="{{route('assignee.index')}}?day=all" class="btn btn-primary">All Task</a>
     <div class="card card-preview">
