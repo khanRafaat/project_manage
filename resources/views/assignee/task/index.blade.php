@@ -145,9 +145,7 @@ Edit Modal Start  -->
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Delete Time</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+
             </div>
             <div class="modal-body">
                 <input id="delete_time_id" type="hidden">
@@ -265,11 +263,11 @@ Edit Modal Start  -->
         $("#done_work").text(taskArray[id]['done_work']);
         $("#pfassignee").val(taskArray[id]['pf_assignee']);
         $("#task_id").val(taskArray[id]['id']);
-        $("#AdminEdit").attr('action', '{{url('assignee')}}' + '/' + taskArray[id]['id']);
+        $("#AdminEdit").attr('action', '{{url(' assignee ')}}' + '/' + taskArray[id]['id']);
 
         fatchTime()
         $(".add_time").prop("disabled", false);
-          $(".add_time").text("Save");
+        $(".add_time").text("Save");
 
 
 
@@ -328,10 +326,11 @@ Edit Modal Start  -->
                     $("#time_status").hide(4000);
                     $(".add_time").prop("disabled", false);
                     $(".add_time").text("Save");
-                   
+
                     toastr.clear();
-                    NioApp.Toast(response.message, 'success', {position: 'top-right'}
-                    );
+                    NioApp.Toast(response.message, 'success', {
+                        position: 'top-right'
+                    });
 
 
                 }
@@ -342,7 +341,7 @@ Edit Modal Start  -->
     });
 
 
-function fatchTime() {
+    function fatchTime() {
 
         $.ajax({
 
@@ -355,12 +354,12 @@ function fatchTime() {
 
 
                 $('#timeListTable').html('');
-                var totalTime = 0;
+
+
+
 
                 $.each(response.timeList, function(key, times) {
 
-                    var diff = new Date(times.end_time) - new Date(times.start_time);
-                    totalTime += diff;
                     $('#timeListTable').append(`
 
                                                 
@@ -369,7 +368,7 @@ function fatchTime() {
 
                                         <td> ` + tConv24(times.end_time) + ` </td>
 
-                                        <td> ` + parseInt(diff / (1000 * 60 * 60)) + " h " + parseInt(diff / (1000 * 60)) + ' m ' + `</td>
+                                        <td> ` + diff(times.start_time, times.end_time) + `</td>
                                         
                                         <td> <button id="scheduledelete" value="` + times.id + `" class=" delete_time btn btn-danger btn-sm" style="padding: 2px;">Delete</button></td>
                                     </tr>`
@@ -418,11 +417,13 @@ function fatchTime() {
             url: "/times/" + time_id,
             success: function(response) {
                 fatchTime()
-              $("#delete_modal").modal('hide');
+                $("#delete_modal").modal('hide');
                 toastr.clear();
-                NioApp.Toast(response.message, 'error', {position: 'top-right'});
+                NioApp.Toast(response.message, 'error', {
+                    position: 'top-right'
+                });
 
-//  console.log(response);
+                //  console.log(response);
 
             }
 
@@ -432,7 +433,7 @@ function fatchTime() {
     });
 
 
-$("#get_start_time").click(function() {
+    $("#get_start_time").click(function() {
         var date = new Date();
         currentHours = date.getHours();
         currentHours = ("0" + currentHours).slice(-2) + ":" + date.getMinutes();
@@ -457,5 +458,22 @@ $("#get_start_time").click(function() {
         ts = h + ts.substr(2, 3) + ampm;
         return ts;
     };
+
+    function diff(start, end) {
+        start = start.split(":");
+        end = end.split(":");
+        var startDate = new Date(0, 0, 0, start[0], start[1], 0);
+        var endDate = new Date(0, 0, 0, end[0], end[1], 0);
+        var diff = endDate.getTime() - startDate.getTime();
+        var hours = Math.floor(diff / 1000 / 60 / 60);
+        diff -= hours * 1000 * 60 * 60;
+        var minutes = Math.floor(diff / 1000 / 60);
+
+      
+        if (hours < 0)
+            hours = hours + 24;
+
+        return  hours + " hour " + (minutes <= 9 ? "" : "") + minutes + " minutes.";
+    }
 </script>
 @endsection

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\dailyTaskTime;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -53,9 +54,11 @@ class dailyTaskTimeController extends Controller
             ]);
         } else {
 
+            // $request->input('start_time');
+            
             $timeData = new dailyTaskTime();
             $timeData->daily_task_id = $request->input('task_id');
-            $timeData->start_time = $request->input('start_time');
+            $timeData->start_time = $request->input('start_time');                                
             $timeData->end_time = $request->input('end_time');
             $timeData->save();
 
