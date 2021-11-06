@@ -15,7 +15,7 @@ Edit Modal Start  -->
             </div>
             <div class="modal-body modal-body-lg">
 
-                <form action="#" method="POST" id="AdminEdit">
+                <form action="#" method="POST" id="assigneeEdit">
                     @csrf
                     @method('PUT')
                     <div class="row g-4">
@@ -254,11 +254,11 @@ Edit Modal Start  -->
 
     function viewTaskDeltails(id) {
 
-        $("#assigned_work").text(taskArray[id]['assigned_work']);
+        $("#assigned_work").html(taskArray[id]['assigned_work']);
         $("#done_work").text(taskArray[id]['done_work']);
         $("#pfassignee").val(taskArray[id]['pf_assignee']);
         $("#task_id").val(taskArray[id]['id']);
-        $("#AdminEdit").attr('action', '{{url(' assignee ')}}' + '/' + taskArray[id]['id']);
+        $("#assigneeEdit").attr('action', '{{url('assignee')}}' + '/' + taskArray[id]['id']);
 
         fatchTime()
         $(".add_time").prop("disabled", false);
