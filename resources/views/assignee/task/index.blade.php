@@ -51,10 +51,44 @@ Edit Modal Start  -->
             <button class="btn btn-success center" type="submit">Save Changes</button>
             </form>
 
-            <div class="modal-footer bg-light" style=" margin-top:20px">
+            <div class="modal-footer bg-light" >
 
 
-                <div class="row col-12" style="margin-left:-150px">
+                <div class="row col-12" >
+
+
+                      <div class="col-md-4" >
+                        <div class="form-group">
+
+                            <input type="hidden" id="task_id" name="task_id" value="">
+
+                            <label class="form-label">Start Time</label>
+                            <div class="form-control-wrap">
+
+                                <input type="time" name="start_time" id="get_start_time" class="get_start_time form-control" data-toggle="tooltip" data-placement="top" title="Click for current time">
+                                <p id="start_time_error"></p>
+                            </div>
+                        </div>
+                    
+
+                    
+                        <div class="form-group">
+                            <label class="form-label" for="phone-no-1">End time</label>
+                            <div class="form-control-wrap">
+                                <input type="time" name="end_time" id="get_end_time" class="get_end_time form-control" data-toggle="tooltip" data-placement="top" title="Click for current time">
+                                <p id="end_time_error"></p>
+                            </div>
+                        </div>
+                 
+
+                 
+                        <div class="form-group">
+
+                            <div class="form-control-wrap">
+                                <button type="submit " class="btn btn-secondary add_time">Save</button>
+                            </div>
+                        </div>
+                        </div>
 
                     <div class="col-md-8">
                         <div class="form-group">
@@ -78,42 +112,12 @@ Edit Modal Start  -->
                             </div>
                         </div>
                     </div>
-                </div>
+               
 
-                <div class=" col-12" id="timeForm">
-                    <div class="col-md-4" style="margin-left:600px;margin-top:-80px; ">
-                        <div class="form-group">
+              
 
-                            <input type="hidden" id="task_id" name="task_id" value="">
 
-                            <label class="form-label">Start Time</label>
-                            <div class="form-control-wrap">
-
-                                <input type="time" name="start_time" id="get_start_time" class="get_start_time form-control" data-toggle="tooltip" data-placement="top" title="Click for current time">
-                                <p id="start_time_error"></p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4" style="margin-left:600px; ">
-                        <div class="form-group">
-                            <label class="form-label" for="phone-no-1">End time</label>
-                            <div class="form-control-wrap">
-                                <input type="time" name="end_time" id="get_end_time" class="get_end_time form-control" data-toggle="tooltip" data-placement="top" title="Click for current time">
-                                <p id="end_time_error"></p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4" style="margin-left:55em; margin-top: 20px ">
-                        <div class="form-group">
-
-                            <div class="form-control-wrap">
-                                <button type="submit " class="btn btn-secondary add_time">Save</button>
-                            </div>
-                        </div>
-
-                    </div>
+                 
 
                 </div>
 
