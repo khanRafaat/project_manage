@@ -15,6 +15,7 @@
     <!-- StyleSheets  -->
 
     <link rel="stylesheet" href="  {{asset('backend/assets/css/dashlite.css?ver=2.4.0')}}">
+    <link rel="stylesheet" href="  {{asset('backend/assets/css/custom.css')}}">
     <link id="skin-default" rel="stylesheet" href="{{asset('backend/assets/css/theme.css?ver=2.4.0')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   

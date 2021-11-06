@@ -75,7 +75,7 @@ Edit Modal Start  -->
                         <div class="form-group">
                             <label class="form-label" for="phone-no-1">End time</label>
                             <div class="form-control-wrap">
-                                <input type="time" name="end_time" id="get_end_time" class="get_end_time form-control" data-toggle="tooltip" data-placement="top" title="Click for current time">
+                                <input type="time" name="end_time" id="get_end_time" class="get_end_time form-control " data-toggle="tooltip" data-placement="top" title="Click for current time">
                                 <p id="end_time_error"></p>
                             </div>
                         </div>
@@ -95,10 +95,10 @@ Edit Modal Start  -->
 
                             <div class="form-control-wrap">
 
-                                <table class="table table-hover">
+                                <table class="table-serial table table-hover">
                                     <thead>
                                         <tr>
-
+                                            <th>SL</th>
                                             <th scope="col">Start Time</th>
                                             <th scope="col">End Time</th>
                                             <th scope="col">Total Time</th>
@@ -371,6 +371,8 @@ Edit Modal Start  -->
 
                                                 
                                     <tr >
+                                        <td>&nbsp;</td>
+
                                         <td> ` + tConv24(times.start_time)+ ` </td>
 
                                         <td> `+tConv24(times.end_time)+` </td>
