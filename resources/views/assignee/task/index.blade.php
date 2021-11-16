@@ -16,34 +16,28 @@ Edit Modal Start  -->
                     @csrf
                     @method('PUT')
                     <div class="row col-12">
-                       
-                            <div class="col-md-8">
+                        <div class="col-md-8">
                             <div class="form-group">
                                 <label class="form-label" for="assingedWork">Assinged Work</label>
                                 <div class="form-control-wrap">
                                     <p id="assigned_work"></p>
                                 </div>
-                                </div>
                             </div>
-                        
+                        </div>
                         <div class="col-md-4">
-                              <div class="form-group">
+                            <div class="form-group">
                                 <label class="form-label" for="email-address-1">Performance of Assignee</label>
                                 <div class="form-control-wrap">
                                     <input type="text" name="pf_assignee" id="pfassignee" class="form-control">
                                 </div>
                             </div>
-
                             <div class="form-group">
                                 <label class="form-label" for="email-address-1">Work Done</label>
                                 <div class="form-control-wrap">
                                     <textarea id="done_work" name="done_work" class="form-control" id=""></textarea>
                                 </div>
                             </div>
-                          
                         </div>
-                      
-                       
                     </div>
             </div>
             <button class="btn btn-success center" type="submit">Save Changes</button>
@@ -63,30 +57,18 @@ Edit Modal Start  -->
                                 </ul>
                                 <div class="tab-content" id="myTabContent">
                                     <input type="hidden" id="timer_start" name="">
-                                     <input type="hidden" id="timer_stop" name="">
+                                    <input type="hidden" id="timer_stop" name="">
                                     <div class="tab-pane fade show active" id="timer" role="tabpanel" aria-labelledby="home-tab">
-                                      
-
                                         <div class="center">
-                                        <div class="alert alert-info timerDisplay"><h5>00 : 00 : 00</h5></div>
+                                            <div class="alert alert-info timerDisplay">
+                                                <h5>00 : 00 : 00</h5>
+                                            </div>
                                         </div>
-
-
                                         <div class="center mt-5">
-
-                                       <button type="submit" class="btn btn-secondary timer_button_start mr-2">Start</button>
-                                        <button type="submit" class="btn btn-danger timer_button_stop" disabled>Stop</button>
+                                            <button type="submit" class="btn btn-secondary timer_button_start mr-2">Start</button>
+                                            <button type="submit" class="btn btn-danger timer_button_stop" disabled>Stop</button>
                                         </div>
                                     </div>
-
-                                   
-                                    
-                                 
-
-
-
-
-
                                     <div class="tab-pane fade" id="menual_input" role="tabpanel" aria-labelledby="profile-tab">
                                         <div class="form-group">
                                             <input type="hidden" id="task_id" name="task_id" value="">
@@ -118,15 +100,15 @@ Edit Modal Start  -->
                             <div class="card-body">
                                 <div class="form-group">
                                     <div class="form-control-wrap">
-                                        <table class="table-serial table table-hover">
+                                        <table class=" table table-hover" id="trans_separate">
                                             <thead>
                                                 <tr>
-                                                    <th>SL</th>
                                                     <th scope="col">Date</th>
                                                     <th scope="col">Start Time</th>
                                                     <th scope="col">End Time</th>
                                                     <th scope="col">Total Time</th>
                                                     <th scope="col">Action</th>
+                                                    <th class="displayNone"></th>
                                                 </tr>
                                             </thead>
                                             <tbody id="timeListTable">
@@ -260,15 +242,15 @@ function viewTaskDeltails(id) {
 
 $(document).on('click', '.add_time', function(e) {
 
-  
+
 
     e.preventDefault();
 
     var d = new Date();
     var st = $('.get_start_time').val();
     var et = $('.get_end_time').val();
-    var startTimeStamp = new Date(d.toString().split(":")[0].slice(0,-2) + st);
-    var endTimeStamp = new Date(d.toString().split(":")[0].slice(0,-2) + et);
+    var startTimeStamp = new Date(d.toString().split(":")[0].slice(0, -2) + st);
+    var endTimeStamp = new Date(d.toString().split(":")[0].slice(0, -2) + et);
     $(".add_time").prop("disabled", true);
     $(".add_time").text("Please Wait...");
 
@@ -276,6 +258,7 @@ $(document).on('click', '.add_time', function(e) {
         'task_id': $('#task_id').val(),
         'start_time': startTimeStamp,
         'end_time': endTimeStamp,
+        'isAuto': "0",
     }
 
     $.ajaxSetup({
@@ -292,7 +275,7 @@ $(document).on('click', '.add_time', function(e) {
         dataType: "json",
         success: function(response) {
 
-            console.log(response);
+            // console.log(response);
             if (response.status == 400) {
 
 
@@ -342,7 +325,7 @@ function fatchTime() {
         dataType: "json",
         success: function(response) {
 
-            console.log(response.timeList);
+            // console.log(response.timeList);
 
 
 
@@ -353,10 +336,10 @@ function fatchTime() {
             $.each(response.timeList, function(key, times) {
 
 
-                var date1 = new Date(times.start_time); 
+                var date1 = new Date(times.start_time);
                 var date2 = new Date(times.end_time);
                 if (date2 < date1) {
-                  date2.setDate(date2.getDate() + 1);
+                    date2.setDate(date2.getDate() + 1);
                 }
                 var diff = date2 - date1;
                 var msec = diff;
@@ -365,32 +348,46 @@ function fatchTime() {
                 var mm = Math.floor(msec / 1000 / 60);
                 msec -= mm * 1000 * 60;
                 var ss = Math.floor(msec / 1000);
-                msec -= ss * 1000; 
-
-
-
-
-
-
+                msec -= ss * 1000;
 
                 $('#timeListTable').append(`
 
                                                 
                                     <tr >
-                                        <td>&nbsp;</td>
-                                        <td> ` +dateAndMonth(times.start_time) + ` </td>
+                                        
+                                       
+                                        <td > ` + dateAndMonth(times.start_time) + ` </td>
 
-                                        <td> ` +getTimeFromDate(times.start_time) + ` </td>
+                                        <td> ` + getTimeFromDate(times.start_time) + ` </td>
 
-                                        <td> ` +getTimeFromDate(times.end_time) + ` </td>
+                                        <td> ` + getTimeFromDate(times.end_time) + ` </td>
 
-                                        <td> ` +(hh <= 9 ? "0" : "")+hh+":"+(mm <= 9 ? "0" : "")+mm+":"+(ss <= 9 ? "0" : "")+ss+  `</td>
+                                        <td> ` + (hh <= 9 ? "0" : "") + hh + " : " + (mm <= 9 ? "0" : "") + mm + " : " + (ss <= 9 ? "0" : "") + ss + `</td>
                                         
                                         <td> <button id="scheduledelete" value="` + times.id + `" class=" delete_time btn btn-danger btn-sm" style="padding: 2px;">Delete</button></td>
+                                        <td class="displayNone">` + times.isAuto + `</td>
+                                       
                                     </tr>`
 
 
                 );
+
+
+
+                var rows = document.getElementById("trans_separate").getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+
+                for (i = 0; i < rows.length; i++) {
+                    row = rows[i].getElementsByTagName('td');
+                    var cell = getText(row[5]);
+
+
+                    if (cell === '0') rows[i].className = "text-danger table-active";
+                }
+
+                function getText(cell) {
+                    return (cell.innerText == undefined) ? cell.textContent : cell.innerText;
+                }
+
 
 
             });
@@ -402,6 +399,8 @@ function fatchTime() {
 
 
 }
+
+
 
 $(document).on('click', '.delete_time', function(e) {
 
@@ -449,7 +448,7 @@ $(document).on('click', '.delete_time_btn', function(e) {
 });
 
 
-let [seconds,minutes,hours] = [0,0,0];
+let [seconds, minutes, hours] = [0, 0, 0];
 let timerRef = document.querySelector('.timerDisplay');
 let int = null;
 
@@ -457,52 +456,53 @@ let int = null;
 
 
 $(document).on('click', '.timer_button_start', function(e) {
-     e.preventDefault();
-     var date = new Date();
+    e.preventDefault();
+    var date = new Date();
     currentHours = date.getHours();
-    currentHours = ("0" + currentHours).slice(-2) + ":" + date.getMinutes() +":"+ date.getSeconds();
+    currentHours = ("0" + currentHours).slice(-2) + ":" + date.getMinutes() + ":" + date.getSeconds();
 
     $("#timer_start").val("");
     var currentTime = document.querySelector("#timer_start");
     currentTime.value = date;
 
 
-      $(".timer_button_start").prop("disabled", true);
-        $(".timer_button_stop").prop("disabled", false);
+    $(".timer_button_start").prop("disabled", true);
+    $(".timer_button_stop").prop("disabled", false);
 
 
-if(int!==null){
+    if (int !== null) {
         clearInterval(int);
     }
-    int = setInterval(displayTimer,1000);
+    int = setInterval(displayTimer, 1000);
 
-    
-    
+
+
 });
 
 
 $(document).on('click', '.timer_button_stop', function(e) {
-     e.preventDefault();
-     var date = new Date();
+    e.preventDefault();
+    var date = new Date();
     currentHours = date.getHours();
-    currentHours = ("0" + currentHours).slice(-2) + ":" + date.getMinutes()+":"+ date.getSeconds();
+    currentHours = ("0" + currentHours).slice(-2) + ":" + date.getMinutes() + ":" + date.getSeconds();
 
-$("#timer_stop").val("");
-var currentTime = document.querySelector("#timer_stop");
+    $("#timer_stop").val("");
+    var currentTime = document.querySelector("#timer_stop");
     currentTime.value = date;
-     
 
-  clearInterval(int);
-    [seconds,minutes,hours] = [0,0,0];
+
+    clearInterval(int);
+    [seconds, minutes, hours] = [0, 0, 0];
     timerRef.innerHTML = '<h5>00 : 00 : 00</h5>';
 
 
 
 
- var timeData = {
+    var timeData = {
         'task_id': $('#task_id').val(),
         'start_time': $('#timer_start').val(),
         'end_time': $('#timer_stop').val(),
+        'isAuto': "1",
     }
 
     $.ajaxSetup({
@@ -519,35 +519,35 @@ var currentTime = document.querySelector("#timer_stop");
         dataType: "json",
         success: function(response) {
 
-            console.log(response);
+            // console.log(response);
             if (response.status == 400) {
 
 
 
 
                 fatchTime()
-              
+
                 toastr.clear();
                 NioApp.Toast(response.message, 'error', {
                     position: 'top-right'
                 });
 
-                 $(".timer_button_start").prop("disabled", false);
-                 $(".timer_button_stop").prop("disabled", true);
+                $(".timer_button_start").prop("disabled", false);
+                $(".timer_button_stop").prop("disabled", true);
 
 
 
-             
+
             } else {
                 fatchTime()
-              
+
                 toastr.clear();
                 NioApp.Toast(response.message, 'success', {
                     position: 'top-right'
                 });
 
-                 $(".timer_button_start").prop("disabled", false);
-                 $(".timer_button_stop").prop("disabled", true);
+                $(".timer_button_start").prop("disabled", false);
+                $(".timer_button_stop").prop("disabled", true);
 
 
             }
@@ -559,75 +559,73 @@ var currentTime = document.querySelector("#timer_stop");
 });
 
 
-function displayTimer(){
-    seconds+= 1;
-    
-        if(seconds == 60){
-            seconds = 0;
-            minutes++;
-            if(minutes == 60){
-                minutes = 0;
-                hours++;
-            }
+function displayTimer() {
+    seconds += 1;
+
+    if (seconds == 60) {
+        seconds = 0;
+        minutes++;
+        if (minutes == 60) {
+            minutes = 0;
+            hours++;
         }
-   
+    }
+
     let h = hours < 10 ? "0" + hours : hours;
     let m = minutes < 10 ? "0" + minutes : minutes;
     let s = seconds < 10 ? "0" + seconds : seconds;
-    
+
 
     timerRef.innerHTML = `<h5> ${h} : ${m} : ${s} </h5>`;
 }
 
-   
+
 
 $("#get_start_time").click(function() {
-     var date = new Date();
+    var date = new Date();
     currentHours = date.getHours();
-   currentHours = ("0" + currentHours).slice(-2) + ":" + date.getMinutes()+":"+ date.getSeconds();
+    currentHours = ("0" + currentHours).slice(-2) + ":" + date.getMinutes() + ":" + date.getSeconds();
     var currentTime = document.querySelector("#get_start_time");
     currentTime.value = currentHours;
 });
 
 $("#get_end_time").click(function() {
-      var date = new Date();
+    var date = new Date();
     currentHours = date.getHours();
-    currentHours = ("0" + currentHours).slice(-2) + ":" + date.getMinutes()+":"+ date.getSeconds();
-   var currentTime = document.querySelector("#get_end_time");
-   currentTime.value = currentHours;
+    currentHours = ("0" + currentHours).slice(-2) + ":" + date.getMinutes() + ":" + date.getSeconds();
+    var currentTime = document.querySelector("#get_end_time");
+    currentTime.value = currentHours;
 });
 
 
-function dateAndMonth(getDate){
+function dateAndMonth(getDate) {
 
     var timeFromDate = new Date(getDate)
-   var month = timeFromDate.toLocaleString('default', { month: 'short' });
-   var dateOfMonth = timeFromDate.getDate();
-   return dateOfMonth +" " +month;
+    var month = timeFromDate.toLocaleString('default', { month: 'short' });
+    var dateOfMonth = timeFromDate.getDate();
+    return dateOfMonth + " " + month;
 
 
 
 }
 
 function getTimeFromDate(timestamp) {
-       var timeFromDate = new Date(timestamp)
-      var currentHours = timeFromDate.getHours();
-        currentHours = ("0" + currentHours).slice(-2) + ":" + timeFromDate.getMinutes() ;
-       
-        var ts = currentHours;
-        var H = +ts.substr(0, 2);
-        var h = (H % 12) || 12;
-        h = (h < 10) ? ("0" + h) : h;
-        var ampm = H < 12 ? " AM" : " PM" ;
-        min = ts.substr(2,3);
-        console.log(min);
-        minn = (min < 10) ? ("0" + min) : min;
-        ts = h +minn+ ampm;
-         return ts;
+    var timeFromDate = new Date(timestamp)
+    var currentHours = timeFromDate.getHours();
+    currentHours = ("0" + currentHours).slice(-2) + ":" + timeFromDate.getMinutes();
+
+    var ts = currentHours;
+    var H = +ts.substr(0, 2);
+    var h = (H % 12) || 12;
+    h = (h < 10) ? ("0" + h) : h;
+    var ampm = H < 12 ? " AM" : " PM";
+    min = ts.substr(2, 3);
+    // console.log(min);
+    minn = (min < 10) ? ("0" + min) : min;
+    ts = h + minn + ampm;
+    return ts;
 
 }
-
-
 
 </script>
 @endsection

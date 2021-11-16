@@ -12,6 +12,7 @@ class dailyTaskTime extends Model
         'daily_task_id',
         'start_time',
         'end_time',
+        'isAuto',
         
      ];
 

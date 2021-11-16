@@ -11,6 +11,11 @@
     box-shadow: 0 0 10px rgba(0,139,253,0.25);
 }
 
+
+.displayNone{
+    display: none;
+};
+
 .table-serial {
     counter-reset: serial-number;
 }
