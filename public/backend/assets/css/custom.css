@@ -1,6 +1,20 @@
-.table-serial {
- counter-reset: serial-number; 
+.timerDisplay{
+    position: relative;
+    width: 100%;
+   
+   
+   
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border-radius: 1px;
+    box-shadow: 0 0 10px rgba(0,139,253,0.25);
 }
+
+.table-serial {
+    counter-reset: serial-number;
+}
+
 .table-serial td:first-child:before {
- counter-increment: serial-number; 
- content: counter(serial-number); 
+    counter-increment: serial-number;
+    content: counter(serial-number);

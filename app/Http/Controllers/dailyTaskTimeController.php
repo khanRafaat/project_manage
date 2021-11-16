@@ -58,7 +58,7 @@ class dailyTaskTimeController extends Controller
             
             $timeData = new dailyTaskTime();
             $timeData->daily_task_id = $request->input('task_id');
-            $timeData->start_time = $request->input('start_time');                                
+            $timeData->start_time =  $request->input('start_time');                                
             $timeData->end_time = $request->input('end_time');
             $timeData->save();
 

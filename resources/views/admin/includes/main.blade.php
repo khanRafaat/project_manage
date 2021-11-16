@@ -13,16 +13,19 @@
     <!-- Page Title  -->
     <title>Project Management</title>
     <!-- StyleSheets  -->
+ 
 
     <link rel="stylesheet" href="  {{asset('backend/assets/css/dashlite.css?ver=2.4.0')}}">
-    <link rel="stylesheet" href="  {{asset('backend/assets/css/custom.css')}}">
+    <link rel="stylesheet" href="  {{asset('backend/assets/css/custom.css')}} ">
+  
     <link id="skin-default" rel="stylesheet" href="{{asset('backend/assets/css/theme.css?ver=2.4.0')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   
 
 </head>
 
-<body class="nk-body bg-lighter npc-general has-sidebar ">
+<body onload="loading()" class=" nk-body bg-lighter npc-general has-sidebar ">
+    <div id="loading"></div>
     <div class="nk-app-root">
         <!-- main @s -->
         <div class="nk-main ">
@@ -70,6 +73,12 @@
 
 
     <script type="text/javascript">
+
+        var preloader = document.getElementById('loading');
+        function loading(){
+            preloader.style.display ="none";
+
+         }
 
    @if(Session::has('message'))
         var type ="{{Session::get('alert-type','info')}}"
