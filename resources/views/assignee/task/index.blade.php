@@ -100,7 +100,8 @@ Edit Modal Start  -->
                             <div class="card-body">
                                 <div class="form-group">
                                     <div class="form-control-wrap">
-                                        <table class=" table table-hover" id="trans_separate">
+                                        <div class="table-responsive-sm">
+                                        <table class=" table table-hover" id="tableTextColor">
                                             <thead>
                                                 <tr>
                                                     <th scope="col">Date</th>
@@ -114,6 +115,7 @@ Edit Modal Start  -->
                                             <tbody id="timeListTable">
                                             </tbody>
                                         </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -374,7 +376,7 @@ function fatchTime() {
 
 
 
-                var rows = document.getElementById("trans_separate").getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+                var rows = document.getElementById("tableTextColor").getElementsByTagName("tbody")[0].getElementsByTagName("tr");
 
                 for (i = 0; i < rows.length; i++) {
                     row = rows[i].getElementsByTagName('td');
