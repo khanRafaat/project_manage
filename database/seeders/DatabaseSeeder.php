@@ -67,5 +67,26 @@ class DatabaseSeeder extends Seeder
            
                 
         ]);
+
+        DB::table('daily_task_users')->insert([
+
+            'duty_time' => '8',
+            'weekly_duty' => '6',
+            'user_id' => '1',
+           
+                
+        ]);
+
+        DB::table('daily_task_users')->insert([
+
+            'duty_time' => '8',
+            'weekly_duty' => '6',
+            'user_id' => '2',
+           
+                
+        ]);
+
+
+
     }
 }
